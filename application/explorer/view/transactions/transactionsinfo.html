@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AICHAIN-TESTNET Transactions</title>
+    <link rel="stylesheet" href="__PUBLIC__/css/layer.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/reset.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/common.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/blocks.css">
+</head>
+
+<body>
+<!-- nav -->
+<div class="wrapper">
+</div>
+<div class="blocks">
+    <div class="blocks-title">Transaction ::0x{$Transaction.txhash}</div>
+</div>
+<!-- blocks点击id对应的详情页面  -->
+<div class="row  blocksid">
+    <div class="CorrespondingID">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#Overview" aria-controls="Overview" role="tab" data-toggle="tab">Overview</a></li>
+            {if $InternalTransactionnum >0}
+            <li role="presentation"><a href="#Internal" aria-controls="Internal" role="tab" data-toggle="tab">Internal Transactions</a></li>
+            {/if}
+            <li role="presentation"><a href="#EventLogs" aria-controls="EventLogs" role="tab" data-toggle="tab">Event Logs({$Eventlogsnumber})</a></li>
+            <li role="presentation"><a href="#Comments" aria-controls="Comments" role="tab" data-toggle="tab">Comments</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="Overview">
+                <div class="tab-pane fade in active" id="overview">
+                    <div class="panel panel-info table-responsive">
+                        <div class="panel-heading margin-bottom-15">
+                            <h3 class="panel-title">Block Information
+                            </h3>
+                        </div>
+                        <table id="ContentPlaceHolder1_maintable" class="table nav-justified" cellpadding="0" cellspacing="0">
+                            <tbody>
+                            <tr>
+                                <td>TxHash:</td>
+                                <td>0x{$Transaction.txhash}</td>
+                            </tr>
+                            <tr>
+                                <td>TxReceipt Status:</td>
+                                <td>
+                                    {if $Transaction.receipt_status =='1'}
+                                    <span style="color:green;">Success</span>
+                                    {else /}
+                                    <span style="color:red;">False</span>
+                                    {/if}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="190">
+                                    Block Height:
+                                </td>
+                                <td>
+                                    <a href="/block/{$Transaction.block_number}"> {$Transaction.block_number}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="190">TimeStamp:
+                                </td>
+                                <td>
+                                   {$Transaction.block_timestamp}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="190">From:
+                                </td>
+                                <td>
+                                    <a href="/address/ai{$Transaction.from_address}"> ai{$Transaction.from_address}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="190">To:
+                                </td>
+                                <td>
+                                    <a href="/address/ai{$Transaction.to_address}"> {if $Transaction.contract_address}Contract ：{/if}ai{$Transaction.to_address}</a>
+                                </td>
+                            </tr>
+                            {if $TokenTransfer}
+                            {foreach $TokenTransfer as $key=>$vo}
+                            <tr>
+                                <td width="190">Token Transfer:
+                                </td>
+                                <td>
+                                    From: <a href="/address/ai{$vo.erc20_from}">ai{$vo.erc20_from}</a>   -- to:<a href="/address/ai{$vo.erc20_to}">ai{$vo.erc20_to}</a> -- for:{$vo.erc20_amount} {$vo.token_name}
+                                </td>
+                            </tr>
+                            {/foreach}
+                            {/if}
+
+                            <tr>
+                                <td width="190">Value:
+                                </td>
+                                <td>
+                                    {$Transaction.amount}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="190"> fee:
+                                </td>
+                                <td>
+                                    {$Transaction.fee}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="190">Gas Limit:
+                                </td>
+                                <td>
+                                    {$Transaction.gas_limit}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="190"> Gas Used By Txn:
+                                </td>
+                                <td>
+                                    {$Transaction.receipt_gas_used}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="190">Gas Price:
+                                </td>
+                                <td>
+                                    {$Transaction.gas_price}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="190">Nonce:
+                                </td>
+                                <td>
+                                    {$Transaction.nonce}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="190">Input Data:
+                                </td>
+                                <td>
+                                    <textarea readonly spellcheck="false" style="width: 705px; font-size: small; font-family: monospace; padding: 8px; background-color: rgb(238, 238, 238); margin: 0px; height: 120px;" rows="4" id="inputdata">{$Transaction.input}</textarea>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                    </div>
+                </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="Internal">
+                <div class="panel panel-info">
+                        <table id="ContentPlaceHolder1_maintable" class="table nav-justified" cellpadding="0" cellspacing="0">
+                            <tbody>
+                            <tr>
+                                <td>Type_TraceAddress:</td>
+                                <td>{$Transaction.txhash}</td>
+                            </tr>
+                            <tr>
+                                <td>From:</td>
+                                <td>
+                                    {if $Transaction.receipt_status =='1'}
+                                    Success
+                                    {else /}
+                                    False
+                                    {/if}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="190">
+                                    To:
+                                </td>
+                                <td>
+                                    {$Transaction.block_number}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="190">Value:
+                                </td>
+                                <td>
+                                    {$Transaction.amount}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="190">Fee:
+                                </td>
+                                <td>
+                                    {$Transaction.fee}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="190">GasLimit:
+                                </td>
+                                <td>
+                                    {$Transaction.block_timestamp}
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                        <br>
+                    </div>
+                </div>
+
+            <div role="tabpanel" class="tab-pane" id="Comments">
+                <div class="panel panel-info">
+                    <div class="panel-body">
+                        <div>
+                            Make sure to use the "downvote" button for any spammy posts, and the "upvote" for interesting conversations.<br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="EventLogs">
+                <div class="panel panel-info">
+                    <div class="panel-body">
+                        <div>
+                            {if condition="empty($Recipt) neq true"}
+                           {foreach $Recipt as $key=>$vo}
+
+                            Address:{$vo.contract_address}<br/>
+                            {if condition="empty($vo.logs) neq true"}
+                            topics :
+                             {foreach $vo.logs as $key2=>$vo2}
+                                {foreach $vo2.topics as $key3=>$vo3}
+                                     [{$key3}]{$vo3.$key3}<br/>
+                                {/foreach}
+                            Data:{$vo2.data}<br/>
+                              {/foreach}
+                           {/if}
+
+                            {/foreach}
+                            {/if}
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="footerwrapper"></div>
+</body>
+<script src="__PUBLIC__/js/jquery-3.3.1.min.js"></script>
+<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/js/common.js"></script>
+<script>
+    $(function () {
+        $(".wrapper").load('__PUBLIC__/nav.html');
+        $(".footerwrapper").load('__PUBLIC__/footer.html');
+        $('#myTabs a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        })
+    })
+
+</script>
+
+</html>

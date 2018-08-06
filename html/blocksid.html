@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/layer.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/blocks.css">
+</head>
+
+<body>
+    <!-- nav -->
+    <div class="wrapper">
+    </div>
+    <div class="blocks">
+        <div class="blocks-title">Blocks + id</div>
+    </div>
+    <!-- blocks点击id对应的详情页面  -->
+    <div class="row  blocksid">
+        <div class="CorrespondingID">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#Overview" aria-controls="Overview" role="tab" data-toggle="tab">Overview</a></li>
+                <li role="presentation"><a href="#Comments" aria-controls="Comments" role="tab" data-toggle="tab">Comments</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="Overview">
+                    <div class="tab-pane fade in active" id="overview">
+                        <div class="panel panel-info table-responsive">
+                            <div class="panel-heading margin-bottom-15">
+                                <h3 class="panel-title">Block Information
+                                </h3>
+                            </div>
+                            <table id="ContentPlaceHolder1_maintable" class="table nav-justified" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                    <tr>
+                                        <td>Height:</td>
+                                        <td>
+                                            <a id="ContentPlaceHolder1_HyperLinkPrev" title="Previous Block" class="btn btn-primary btn-xs" role="button" href="/block/5734134">&lt; Prev</a>&nbsp;
+                                            &nbsp;
+                                            <b>5734135</b>&nbsp;&nbsp;
+                                            <a id="ContentPlaceHolder1_HyperLinkNext" title="Next Block" class="btn btn-primary btn-xs" role="button" href="/block/5734136">Next &gt;</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>TimeStamp:</td>
+                                        <td>7 mins ago (Jun-05-2018 02:32:36 AM +UTC)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Transactions:</td>
+                                        <td>
+                                            <a href="javascript:;" title="Click to View Transactions">
+                                                163 transactions
+                                            </a> 
+                                            and 
+                                            <a href="javascript:;" title="Click to View Internal Transactions">
+                                                11 contract internal transactions
+                                            </a> 
+                                            in this block
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="190">
+                                            Hash:
+                                        </td>
+                                        <td>
+                                            0x59eabf389c9f13642f3a89ccfb8aaf50272ea2b6e7c52595897955bd5c216d8f
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="190">&nbsp;&nbsp;Parent Hash:
+                                        </td>
+                                        <td>
+                                        <a href="javascript:;">0x1099bff501aac5e8d3eb5acfd9efb45f27cb23835148d530ed26922bab06646a</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="190">&nbsp;&nbsp;Sha3Uncles:
+                                        </td>
+                                        <td>
+                                        0x631c19fa4a1ffec9442b366b278d7aea2bd87319ff33816309f9b8b58a56d909
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="190">&nbsp;&nbsp;Mined By:
+                                        </td>
+                                        <td>
+                                        <a href="javascript:;">0x5a0b54d5dc17e0aadc383d2db43b0a0d3e029c4c</a> (<b>SparkPool</b>) in 3 secs
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="Comments">
+                    <div class="panel panel-info">
+                        <div class="panel-body">
+                            <div>
+                            Make sure to use the "downvote" button for any spammy posts, and the "upvote" for interesting conversations.<br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footerwrapper"></div>
+</body>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/common.js"></script>
+<script>
+    $(function () {
+        $(".wrapper").load('nav.html');
+        $(".footerwrapper").load('footer.html');
+        $('#myTabs a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        })
+    })
+
+</script>
+
+</html>

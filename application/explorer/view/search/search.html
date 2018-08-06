@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Search</title>
+    <link rel="stylesheet" href="__PUBLIC__/css/layer.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/reset.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/common.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/blocks.css">
+</head>
+
+<body>
+<!-- nav -->
+<div class="wrapper">
+</div>
+<!-- blocks点击id对应的详情页面  -->
+<div class="address">
+    <div class="row" style="padding-top:50px;">
+        <div class="col-md-8 col-md-offset-2" style="text-align:center">
+            <div class="error-v1">
+                <span style="font-size:35px;">Oops!</span>
+                <br>
+                {if $search !=''}
+                <p style="font-size:20px;">The search string you entered was: </p>
+                <pre style="font-size:30px;height:50px;">{$search}</pre>
+                <p style="font-size:20px;">Sorry! This is an invalid search string.</p><br><br> <p></p>
+                <a class="btn btn-primary" href="/">Back Home</a>
+                {else}
+                <p style="font-size:20px;">You have entered an emtpy search string</p><br/><br/>
+                <a class="btn btn-primary" href="/">Back Home</a>
+                {/if}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footerwrapper"></div>
+</body>
+<script src="__PUBLIC__/js/jquery-3.3.1.min.js"></script>
+<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/js/common.js"></script>
+<script>
+    $(function(){
+        $('.dropdown-toggle').dropdown()
+        $(".wrapper").load('__PUBLIC__/nav.html');
+        $(".footerwrapper").load('__PUBLIC__/footer.html');
+    })
+</script>
+</html>

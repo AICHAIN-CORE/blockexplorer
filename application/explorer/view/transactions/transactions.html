@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AICHAIN-TESTNET Transactions</title>
+    <link rel="stylesheet" href="/css/layer.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/blocks.css">
+</head>
+<body>
+    <!-- nav -->
+    <div class="wrapper">
+    </div>
+    <div class="transactions">
+        <div class="blocks-title">
+
+
+            Transactions    {if $block_number} ::{$block_number}{/if}{if $address} ::ai{$address}{/if}
+
+
+        </div>
+        <!-- transactions详细信息  -->
+        <div class="bs-example table-responsive" data-example-id="hoverable-table">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>TxHash</th>
+                    <th>Block</th>
+                    <th>Age</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Value</th>
+                    <th>[TxFee]</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach $Transaction as $key => $vo}
+                    <tr>
+                        <td>
+                            {if $vo.receipt_status !='1'}
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" style='color:red;'></span>
+                            {/if}
+                            <a href="/tx/0x{$vo.txhash}">
+                              0x{$vo.txhash}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/block/{$vo.block_number}">
+                                {$vo.block_number}
+                            </a>
+                        </td>
+                        <td> {$vo.timeago}</td>
+                        <td>
+                            <a href="/address/ai{$vo.from_address}">
+                                ai{$vo.from_address}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/address/ai{$vo.to_address}">
+                                ai{$vo.to_address}
+                            </a>
+                        </td>
+                        <td>{$vo.amount}</td>
+                        <td> {$vo.fee}</td>
+                    </tr>
+                {/foreach}
+
+                </tbody>
+            </table>
+        </div>
+        <!-- showpage -->
+        <div class="showpage">
+            <span>show</span>
+            <select id="listRows">
+                <option value ="10" {if $listRows==10}selected="selected"{/if}>10</option>
+                <option value ="20" {if $listRows==20}selected="selected"{/if}>20</option>
+                <option value="30" {if $listRows==30}selected="selected"{/if}>30</option>
+                <option value="40" {if $listRows==40}selected="selected"{/if}>40</option>
+                <option value="100" {if $listRows==100}selected="selected"{/if}>100</option>
+            </select>
+            <span>page</span>
+        </div>
+        <!-- 翻页 -->
+        <nav aria-label="Page navigation" class="select-page"> 
+            <!--<ul class="pagination">-->
+                <!--<li>-->
+                    <!--<a href="#" aria-label="Previous">-->
+                    <!--<span aria-hidden="true">&laquo;</span>-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li><a href="#">1</a></li>-->
+                <!--<li><a href="#">2</a></li>-->
+                <!--<li><a href="#">3</a></li>-->
+                <!--<li><a href="#">4</a></li>-->
+                <!--<li><a href="#">5</a></li>-->
+                <!--<li>-->
+                    <!--<a href="#" aria-label="Next">-->
+                    <!--<span aria-hidden="true">&raquo;</span>-->
+                    <!--</a>-->
+                <!--</li>-->
+            <!--</ul>-->
+{$page}
+        </nav>
+    </div>
+    <div class="footerwrapper"></div>
+</body>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/common.js"></script>
+<script>
+    $(function(){
+        $(".wrapper").load('__PUBLIC__/nav.html');
+        $(".footerwrapper").load('__PUBLIC__/footer.html');
+    })
+
+    $("#listRows").change(function(){
+        var opt=$("#listRows").val();
+        var url =window.location.href;
+        var new_url=putUrlParam(url,'listRows',opt);
+        window.location.href=new_url;
+
+    });
+
+    function putUrlParam(url, ref, value) {
+
+        // 如果没有参数
+        if (url.indexOf('?') == -1)
+            return url + "?" + ref + "=" + value;
+
+        // 如果不包括此参数
+        if (url.indexOf(ref) == -1)
+            return url + "&" + ref + "=" + value;
+
+        var arr_url = url.split('?');
+
+        var base = arr_url[0];
+
+        var arr_param = arr_url[1].split('&');
+
+        for (i = 0; i < arr_param.length; i++) {
+
+            var paired = arr_param[i].split('=');
+
+            if (paired[0] == ref) {
+                paired[1] = value;
+                arr_param[i] = paired.join('=');
+                break;
+            }
+        }
+
+        return base + "?" + arr_param.join('&');
+    }
+</script>
+</html>

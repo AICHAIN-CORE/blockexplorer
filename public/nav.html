@@ -1,0 +1,71 @@
+<link rel="stylesheet" href="https://testnetscan.aichain.me/css/layer.css">
+<link rel="stylesheet" href="https://testnetscan.aichain.me/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://testnetscan.aichain.me/css/reset.css">
+<link rel="stylesheet" href="https://testnetscan.aichain.me/css/common.css">
+<link rel="stylesheet" href="https://testnetscan.aichain.me/css/index.css">
+
+<div class="header clearfix">
+    <div class="container clearfix">
+        <a href="https://testnetscan.aichain.me/" class="logo">
+            <img src="https://testnetscan.aichain.me/images/logo.png" alt="">
+        </a>
+        <div class="topbar hidden-xs hidden-sm">
+            <form action="/Search" method="get">
+                <ul class="loginbar">
+                    <li>
+                        <div>
+                            <input type="text" name="search" placeholder="Search by Address / Txhash / Block / Token / Ens" class="search">
+                            <span>
+                                <button class="search-button" type="submit">GO</button>
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+    <!-- 导航start -->
+    <div class="navcontent">
+        <ul class="venus-menu">
+            <li class="showhide" style="display: none;"><span class="title">Menu</span><span class="icon"><em></em><em></em><em></em><em></em></span></li>
+            <li class="active">
+                <a href="/">HOME</a>
+            </li>
+            <li>
+                <a href="javascript:;">Blockchain</a>
+                <ul>
+                    <li>
+                        <a href="/blocks">Blocks</a>
+                    </li>
+                    <li>
+                        <a href="/txs">Transactions</a>
+                    </li>
+                    <li>
+                        <a href="/txsInternal">Contract Internal Txns</a>
+                    </li>
+                    <li><a href="/txsPending">Pending Transactions</a></li>
+                    <li><a href="/tokentxs">Token Transactions</a></li>
+                    <!--<li><a href="accounts.html">Accounts</a></li>-->
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="topbar show-sm">
+        <form action="/Search" method="get">
+            <ul class="loginbar pull-right">
+                <li>
+                    <div>
+                        <input type="text" name="search" placeholder="Search by Address / Txhash / Block / Token / Ens" class="search" >
+                        <span>
+                            <button class="search-button" type="submit">GO</button>
+                        </span>
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </div>
+    <!-- 导航end -->
+</div>
+<script src="https://testnetscan.aichain.me/js/jquery-3.3.1.min.js"></script>
+<script src="https://testnetscan.aichain.me/js/bootstrap.min.js"></script>
+<script src="https://testnetscan.aichain.me/js/common.js"></script>

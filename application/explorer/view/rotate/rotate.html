@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta http-equiv="window-target" content="_top">
+    <meta content="telephone=no" name="format-detection">
+    <title>大转盘</title>
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <script src="/static/jquery-3.2.1.min.js"></script>
+    <style>
+        .ro-layer{  background-color:rgba(128,128,128,.5);  position: fixed;  top: 0;  right: 0;  bottom: 0;  left: 0;  z-index: 1040;  overflow: auto;  overflow-y: scroll;  }
+        .ro-succ{width: 70%;padding: 26% 0 10%;margin: 0 auto;margin-top: 58%;}
+        .ro-succ>div:first-child{text-align: center;color: #fff;font-size: 25px;font-weight: bold;}
+        .lq{width: 150px;font-size: 18px;margin: 0 auto;margin-top:10%;text-align: center;color: #DB1B1B;background-color: #FBBA4B;border-top: 3px solid #FFA100;border-radius: 10px;font-weight: bold;}
+        .ro-fal{width: 70%;padding: 26% 0 10%;margin: 0 auto;margin-top: 58%;font-size: 25px;color: #fff;font-weight: bold;;text-align: center;}
+        .ro-fal>div:first-child{margin-top: -10%;}
+        .ro-fal>div:last-child{margin-bottom: 20%;}
+
+        #lottery{margin: 0 auto;margin-top: 25%;width: 88%;}
+        #lottery table td{
+            width: 100px;
+            height: 90px;
+            text-align: center;
+            vertical-align: middle;
+            background-color: #FF9C76;
+            font-size: 24px;
+            color: #fff;
+            border-radius: 5px;
+        }
+
+        #lottery table td a{
+            width: 100px;
+            height: 90px;
+            line-height: 50px;
+            display: block;
+            text-decoration: none;
+        }
+
+        #lottery table td.active{
+            color: red;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+<section class="main light w100 animated fadeIn">
+    <div id="lottery">
+        <div style="padding: 40px 20px 30px;">
+            <table style="margin: 0 auto;" cellspacing="10px">
+                <tr>
+                    <td class="lottery-unit lottery-unit-0">
+                        10
+                    </td>
+                    <td class="lottery-unit lottery-unit-1">
+                        20
+                    </td>
+                    <td class="lottery-unit lottery-unit-2">
+                        30
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lottery-unit lottery-unit-7">
+                        加油
+                    </td>
+                    <td style="background-color: #DE4A2D;"><a href="#" style="line-height: 5.5rem">开始</a></td>
+                    <td class="lottery-unit lottery-unit-3">
+                        40
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lottery-unit lottery-unit-6">
+                        70
+                    </td>
+                    <td class="lottery-unit lottery-unit-5">
+                        60
+                    </td>
+                    <td class="lottery-unit lottery-unit-4">
+                        50
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>
+<section class="main light w100 animated fadeIn ro-layer" style="display: none;">
+    <!--弹框-->
+    <div class="ro-succ" style="display: none;">
+        <div>获得<span style="color: #FBBA4B;"></span></div>
+        <div class="lq">点击领取</div>
+    </div>
+    <div class="ro-fal" style="display: none;">
+        <div>很遗憾！</div>
+        <div>您没有抽中</div>
+    </div>
+</section>
+<script type="text/javascript">
+    //领取
+    $(".lq").click(function(){
+        location.reload();
+    });
+    $(".ro-fal").click(function(){
+        location.reload();
+    });
+    var prizeset=0;
+    var prizename=0;
+    //抽奖
+    $(function() {
+        lottery.init('lottery');
+        $("#lottery a").click(function() {
+            lottery.speed = 100;
+            $.post("{:url('index/zp')}", {
+                uid: 1
+            },
+            function(data) { //获取奖品
+                prizeset=data.prize_site;
+                prizename=$(".lottery-unit-"+prizeset).text();
+//                prizename=data.prize_name;//这个是根据后台来获取奖品名称,就是php文件中注释的那段
+                roll();
+                click = true;
+                return false;
+            },
+            "json");
+        });
+    })
+
+    var lottery={
+        index:0,	//当前转动到哪个位置
+        count:0,	//总共有多少个位置
+        timer:0,	//setTimeout的ID，用clearTimeout清除
+        speed:200,	//初始转动速度
+        times:0,	//转动次数
+        cycle:50,	//转动基本次数：即至少需要转动多少次再进入抽奖环节
+        prize:-1,	//中奖位置
+        init:function(id){
+            if ($("#"+id).find(".lottery-unit").length>0) {
+                $lottery = $("#"+id);
+                $units = $lottery.find(".lottery-unit");
+                this.obj = $lottery;
+                this.count = $units.length;
+                $lottery.find(".lottery-unit-"+this.index).addClass("active");
+            };
+        },
+        roll:function(){
+            var index = this.index;
+            var count = this.count;
+            var lottery = this.obj;
+            $(lottery).find(".lottery-unit-"+index).removeClass("active");
+            index += 1;
+            if (index>count-1) {
+                index = 0;
+            };
+            $(lottery).find(".lottery-unit-"+index).addClass("active");
+            this.index=index;
+            return false;
+        },
+        stop:function(index){
+            this.prize=index;
+            return false;
+        }
+    };
+    function roll(){
+        lottery.times += 1;
+        lottery.roll();
+        if (lottery.times > lottery.cycle+10 && lottery.prize==lottery.index) {
+            clearTimeout(lottery.timer);
+            if(prizeset=='7'){
+                alert("没中奖");
+            }else{
+                alert("恭喜活动"+prizename);
+            }
+            lottery.prize=-1;
+            lottery.times=0;
+            click=false;
+        }else{
+            if (lottery.times<lottery.cycle) {
+                lottery.speed -= 10;
+            }else if(lottery.times==lottery.cycle) {
+                lottery.prize = prizeset;
+            } else{
+                if (lottery.times > lottery.cycle+10 && ((lottery.prize==0 && lottery.index==8) || lottery.prize==lottery.index+1)) {
+                    lottery.speed += 110;
+                }else{
+                    lottery.speed += 20;
+                }
+            }
+            if (lottery.speed<40) {
+                lottery.speed=40;
+            }
+//            console.log(lottery.times+'^^^^^^'+lottery.speed+'^^^^^^^'+lottery.prize);
+            lottery.timer = setTimeout(roll,lottery.speed);
+        }
+        return false;
+    }
+
+    var click=false;
+</script>
+</body>
+</html>

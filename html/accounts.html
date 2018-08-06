@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/layer.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/blocks.css">
+</head>
+<body>
+    <!-- nav -->
+    <div class="wrapper">
+    </div>
+    <div class="blocks">
+        <div class="blocks-title">All Accounts</div>
+        <!-- blocks详细信息  -->
+        <div class="bs-example table-responsive" data-example-id="hoverable-table">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Address</th>
+                    <th>Balance</th>
+                    <th>Percentage</th>
+                    <th>TxCount</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td><a href="javascript:;">0x281055afc982d96fab65b3a49cac8b878184cb16</a></td>
+                        <td>1,538,422.801690288194846506 Ether</td>
+                        <td>1.54028846%	</td>
+                        <td>496</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            2
+                        </td>
+                        <td><a href="javascript:;">0x281055afc982d96fab65b3a49cac8b878184cb16</a></td>
+                        <td>1,538,422.801690288194846506 Ether</td>
+                        <td>1.54028846%	</td>
+                        <td>496</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            3
+                        </td>
+                        <td><a href="javascript:;">0x281055afc982d96fab65b3a49cac8b878184cb16</a></td>
+                        <td>1,538,422.801690288194846506 Ether</td>
+                        <td>1.54028846%	</td>
+                        <td>496</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- showpage -->
+        <div class="showpage">
+            <span>show</span>
+            <select>
+                <option value ="10">10</option>
+                <option value ="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+            </select>
+            <span>page</span>
+        </div>
+        <!-- 翻页 -->
+        <nav aria-label="Page navigation" class="select-page"> 
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="footerwrapper"></div>
+</body>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/common.js"></script>
+<script>
+    $(function(){
+        $(".wrapper").load('nav.html');
+        $(".footerwrapper").load('footer.html');
+    })
+</script>
+</html>

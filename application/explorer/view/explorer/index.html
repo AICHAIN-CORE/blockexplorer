@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AICHAIN-TESTNET</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/css/layer.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+
+<body>
+    <div class="wrapper">
+    </div>
+    
+    <!-- block start-->
+    <div class="row width1170">
+        <div class="col-sm-6 margin-bottom-20">
+            <div class="panpel panel-profile no-bg">
+                <div class="panpel-heading clearfix">
+                    <h2>Block</h2>
+                    <a href="/blocks">View All</a>
+                </div>
+                <div class="panpel-body">
+                    <ul>
+                        {foreach $Block as $key=>$vo}
+                        <li>
+                            <div class="block-left">
+                                <a href="/block/{$vo.block_number}">Block {$vo.block_number}</a>
+                                <p>>{$vo.block_timestamp}</p>
+                            </div>
+                            <div class="overflow-h">
+                                <p>Mined By <a href="/address/ai{$vo.coinbase}" class="overflow-a">ai{$vo.coinbase}</a></p>
+                                <p><a href="/txs?block={$vo.block_number}">{$vo.transaction_num} txns </a> in {$vo.block_timestamp}</p>
+                                <p> Block Reward {$vo.block_reward} AIT</p>
+                            </div>
+                        </li>
+                        {/foreach}
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Transactions -->
+        <div class="col-sm-6">
+            <div class="panpel panel-profile no-bg transactions">
+                <div class="panpel-heading clearfix">
+                    <h2>Transactions</h2>
+                    <a href="/txs">View All</a>
+                </div>
+                <div class="panpel-body">
+                    <ul>
+                        {foreach $Transaction as $key=>$vo}
+                        <li>
+                            <div class="panpel-hx">
+                                <h3>TX# 
+                                    <a href="/tx/0x{$vo.txhash}">0x{$vo.txhash}</a>
+                                    <span> > {$vo.block_timestamp}  </span>
+                                </h3>
+                                <p>From 
+                                    <a href="/address/ai{$vo.from_address}">ai{$vo.from_address}</a>
+                                    To
+                                    <a href="/address/ai{$vo.to_address}">ai{$vo.to_address}</a>
+                                </p>
+                                <p>Amount {$vo.amount}</p>
+                            </div>
+                        </li>
+                        {/foreach}
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footerwrapper"></div>
+</body>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/common.js"></script>
+<script>
+    $(function(){
+        $(".wrapper").load('__PUBLIC__/nav.html');
+        $(".footerwrapper").load('__PUBLIC__/footer.html');
+    })
+</script>
+</html>

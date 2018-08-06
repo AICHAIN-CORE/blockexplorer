@@ -1,0 +1,126 @@
+/** * * * * * * * * * * * * * *  block* * * * * * * * * * * * *  */
+.panpel-heading h2{
+    float:left;
+    font-size: 16px;
+    color:#555;
+    padding:3px 0px;
+}
+.panpel-heading {
+    color: #585f69;
+    background: #fff;
+    padding: 7px 15px;
+    border-bottom: solid 3px #f7f7f7;
+}
+.panpel-heading a{
+    float:right;
+    color:rgba(42,153,255,1);
+    font-size:14px;
+    border:1px solid rgba(42,153,255,1);
+    padding:3px 5px;
+}
+.panpel-body ul li{
+    background: #fff;
+    padding: 10px 15px;
+    margin-bottom: 2px;
+}
+.panpel-body ul li .block-left{
+    font-size:13px;
+    width: 135px;
+    height: 65px;
+    margin-top: 2px;
+    background: gray;
+    color: #fff;
+    float: left;
+    text-align: center;
+    margin: 7px 13px 0 0;
+    padding: 7px 10px 4px;
+}
+.panpel-body ul li .block-left a{
+    font-size:14px;
+    color:#fff;
+}
+.panpel-body ul li .overflow-h{
+    font-size:13px;
+    margin-top:9px;
+}
+.panpel-body ul li a{
+    color:rgba(42,153,255,1);
+}
+.panpel-body ul li .overflow-h p{
+    color:#333;
+}
+.panpel-body ul li .overflow-h a.overflow-a{
+    display: inline-block;
+    width: 302px;
+    height: 19px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    float: right;
+}
+.width1170{
+    width:1170px;
+    margin:0px auto;
+    margin-top:30px;
+}
+/** * * * * * * * * * * * *  transactions* * * * * * * * * * * **/
+.transactions ul li{
+    border-bottom:1px solid rgba(42,153,255,1);
+}
+.transactions .panpel-hx h3{
+    color: #555;
+    margin-top: 5px;
+    text-shadow: none;
+    font-weight: 400;
+    font-size:14px;
+    margin-bottom:4px;
+}
+.transactions .panpel-hx h3 a{
+    display:inline-block;
+    width:220px;
+    vertical-align: bottom;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.transactions .panpel-hx h3 span{
+    float:right;
+}
+.transactions .panpel-hx p{
+    color:#999;
+    margin-bottom:5px;
+    font-size:13px;
+}
+.transactions .panpel-hx p a{
+    display:inline-block;
+    width:132px;
+    vertical-align: bottom;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.margin-bottom-20{
+    margin-bottom:0px;
+}
+@media only screen and (max-width:768px){
+    .margin-bottom-20{
+        margin-bottom:20px;
+    }
+    .width1170{
+        width:100%;
+        margin:0px auto;
+        margin-top:30px;
+    }
+}
+@media only screen and (max-width:414px){
+    .panpel-body ul li .overflow-h a.overflow-a{
+        display:inline-block;
+        width: 100px;
+        height:19px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        position: absolute;
+        margin-left: 10px;
+    }
+
+}
+

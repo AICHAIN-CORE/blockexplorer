@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AICHAIN-TESTNET BLOCK</title>
+    <link rel="stylesheet" href="__PUBLIC__/css/layer.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/reset.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/common.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/blocks.css">
+</head>
+
+<body>
+<!-- nav -->
+<div class="wrapper">
+</div>
+<div class="blocks">
+    <div class="blocks-title">Block + {$Block.block_number}</div>
+</div>
+<!-- blocks点击id对应的详情页面  -->
+<div class="row  blocksid">
+    <div class="CorrespondingID">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#Overview" aria-controls="Overview" role="tab" data-toggle="tab">Overview</a></li>
+            <!--<li role="presentation"><a href="#Comments" aria-controls="Comments" role="tab" data-toggle="tab">Comments</a></li>-->
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="Overview">
+                <div class="tab-pane fade in active" id="overview">
+                    <div class="panel panel-info table-responsive">
+                        <div class="panel-heading margin-bottom-15">
+                            <h3 class="panel-title">Block Information
+                            </h3>
+                        </div>
+                        <table id="ContentPlaceHolder1_maintable" class="table nav-justified" cellpadding="0" cellspacing="0">
+                            <tbody>
+                            <tr>
+                                <td>Height:</td>
+                                <td>
+                                    <a id="ContentPlaceHolder1_HyperLinkPrev" title="Previous Block" class="btn btn-primary btn-xs" role="button" href="/block/{$up_number}">&lt; Prev</a>&nbsp;
+                                    &nbsp;
+                                    <b>{$Block.block_number}</b>&nbsp;&nbsp;
+                                    <a id="ContentPlaceHolder1_HyperLinkNext" title="Next Block" class="btn btn-primary btn-xs" role="button" href="/block/{$down_number}">Next &gt;</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>TimeStamp:</td>
+                                <td>{$Block.timeago} ({$Block.block_timestamp})</td>
+                            </tr>
+                            <tr>
+                                <td>Transactions:</td>
+                                <td>
+                                    {if $Block.transaction_num !=0}
+                                    <a href="/txs?block={$Block.block_number}" title="Click to View Transactions">
+                                        {$Block.transaction_num} transactions
+                                    </a>
+                                    {else}
+                                    {$Block.transaction_num} transactions
+                                    {/if}
+                                    and
+                                    {if $Block.internaltransaction_num !=0}
+                                    <a href="javascript:;" title="Click to View Internal Transactions">
+                                        {$Block.internaltransaction_num} contract internal transactions
+                                    </a>
+                                    {else}
+                                    {$Block.internaltransaction_num} contract internal transactions
+                                    {/if}
+                                    in this block
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="190">
+                                    Hash:
+                                </td>
+                                <td>
+                                    0x{$Block.block_hash}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="190">Parent Hash:
+                                </td>
+                                <td>
+                                    <a href="/block/0x{$Block.parent_hash}">0x{$Block.parent_hash}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="190">Mined By:
+                                </td>
+                                <td>
+                                    <a href="/address/ai{$Block.coinbase}">ai{$Block.coinbase}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="190">Difficulty:
+                                </td>
+                                <td>
+                                   {$Block.difficulty}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="190"> Size:
+                                </td>
+                                <td>
+                                    {$Block.block_size} bytes
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="190">Gas Used:
+                                </td>
+                                <td>
+                                    {$Block.gas_used}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="190">Gas Limit:
+                                </td>
+                                <td>
+                                    {$Block.gas_limit}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="190">Nonce:
+                                </td>
+                                <td>
+                                    {$Block.nonce}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="190">Block Reward:
+                                </td>
+                                <td>
+                                    {$Block.block_reward} AIT
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="190">Extra Data:
+                                </td>
+                                <td>
+                                    {$Block.extra}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Comments">
+                <div class="panel panel-info">
+                    <div class="panel-body">
+                        <div>
+                            Make sure to use the "downvote" button for any spammy posts, and the "upvote" for interesting conversations.<br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footerwrapper"></div>
+</body>
+<script src="__PUBLIC__/js/jquery-3.3.1.min.js"></script>
+<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/js/common.js"></script>
+<script>
+    $(function () {
+        $(".wrapper").load('__PUBLIC__/nav.html');
+        $(".footerwrapper").load('__PUBLIC__/footer.html');
+        $('#myTabs a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        })
+    })
+
+</script>
+
+</html>

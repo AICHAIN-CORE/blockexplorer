@@ -1,0 +1,175 @@
+.blocks,.transactions,.address{
+    max-width:1170px;
+    margin:0px auto;
+    width:95%;
+}
+.blocks-title{
+    padding:20px 0px;
+    font-size:20px;
+    background-color: #F9F9F9;
+    color: #777;
+    margin-top:8px;
+    text-align:left;
+    width:100%;
+}
+.blocks-title span{
+    font-size:12px;
+}
+.table-responsive>.table>tbody>tr>td, .table-responsive>.table>tbody>tr>th, .table-responsive>.table>tfoot>tr>td, .table-responsive>.table>tfoot>tr>th, .table-responsive>.table>thead>tr>td, .table-responsive>.table>thead>tr>th {
+    white-space: nowrap;
+}
+.table{
+    margin:0px auto;
+    /* overflow:hidden; */
+    background:#fff;
+}
+.table th{
+    font-size:14px;
+    text-align:center;
+}
+.table td{
+    font-size:13px;
+    text-align:center;
+}
+thead tr{
+    background:rgba(42,153,255,1);
+    color:#fff;
+}
+tbody tr td a{
+    color: rgba(42,153,255,1);
+}
+tbody tr{
+    background:#fff;
+}
+.transactions tbody tr td a{
+    color: rgba(42,153,255,1);
+    display:inline-block;
+    width:132px;
+    display: inline-block;
+    vertical-align: bottom;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.table-hover>tbody>tr:hover{
+    background:#E1E1E1;
+}
+.select-page{
+    text-align:right;
+}
+.pagination>li>a, .pagination>li>span{
+    color:rgba(42,153,255,1)
+}
+.showpage{
+    float:left;
+    margin-top:20px;
+}
+.showpage select{
+    padding:3px 10px;
+    margin-left:10px;
+    margin-right:10px;
+}
+.blocksid{
+    margin:0px auto !important;
+    max-width:1170px;
+}
+.CorrespondingID .nav-tabs{
+    width:1170px;
+    margin:0px auto;
+}
+.blocksid table tr td{
+    text-align:left;
+}
+.btn-primary{
+    background: rgba(42,153,255,1);
+    border:none;
+}
+.CorrespondingID ul li{
+    font-size:14px;
+}
+/* account页面  */
+.margin-top30{
+    margin-top:30px !important;
+}
+.accountTrans tbody tr td a {
+    color: rgba(42,153,255,1);
+    display: inline-block;
+    width: 132px;
+    display: inline-block;
+    vertical-align: bottom;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.accountTrans tbody tr td span {
+    display: inline-block;
+    width: 132px;
+    display: inline-block;
+    vertical-align: bottom;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.accountTrans tbody tr td{
+    text-align:center;
+}
+.address .panel-title{
+    text-align: right;
+    display: inline-block;
+    float: right;
+    border: 1px solid #ccc;
+    padding: 3px 10px;
+}
+.tokenbalance{
+    overflow:auto !important;
+}
+.address .nav>li>a{
+    padding:10px 9px;
+}
+.pending table th a{
+    color:#fff;
+    text-decoration:underline;
+}
+.glytrue{
+    color: rgb(0, 128, 0);
+}
+.glyfalse{
+    color: rgb(255, 0, 0);
+}
+.glyphiconyellow{
+    color: rgb(255, 165, 0);
+}
+
+
+
+
+@media only screen and (max-width:768px){
+    .blocks-title{
+        text-align:center;
+    }
+    .table-responsive{
+        width:95%;
+        margin:0px auto;
+    }
+    .accountTrans .table-responsive{
+        width:100%;
+    }
+    .showpage{
+        float:none;
+        width:90%;
+        margin:0px auto;
+        margin-top:20px;        
+    }
+    .CorrespondingID .nav-tabs{
+        width:95%;
+        margin:0px auto;
+    }
+    .address{
+        width:95%;
+        margin:0px auto;
+    }
+    .table-responsive{
+        -webkit-overflow-scrolling:touch;
+        overflow-scrolling: touch;
+    }
+    .radio{
+        display:none;
+    }
+}
