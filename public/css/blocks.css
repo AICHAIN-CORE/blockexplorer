@@ -80,8 +80,8 @@ tbody tr{
     text-align:left;
 }
 .btn-primary{
-    background: rgba(42,153,255,1);
-    border:none;
+    background: rgba(42,153,255,1) !important;
+    border:none !important;
 }
 .CorrespondingID ul li{
     font-size:14px;
@@ -172,4 +172,10 @@ tbody tr{
     .radio{
         display:none;
     }
+    .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover
+    {
+        background-color: rgba(42,153,255,1) !important;
+        border-color: rgba(42,153,255,1) !important;
+    }
+
 }
