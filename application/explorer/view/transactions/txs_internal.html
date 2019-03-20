@@ -6,7 +6,7 @@
     <meta name="Description" content="">
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AICHAIN-TESTNET TxsInternal</title>
+    <title>AICHAIN TxsInternal</title>
     <link rel="stylesheet" href="__PUBLIC__/css/layer.css">
     <link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css">
     <link rel="stylesheet" href="__PUBLIC__/css/reset.css">
@@ -58,21 +58,21 @@
                         <td>
                             <i class="glyphicon glyphicon-ok glytrue"></i>
                             <a href="/tx/0x{$vo.parent_txhash}">
-                                {$vo.parent_txhash}
+                                0x{$vo.parent_txhash}
                             </a>
                         </td>
                         <td> {$vo.type}</td>
                         <td>
                             <a href="/address/ai{$vo.from_address}">
-                               {$vo.from_address}
+                               ai{$vo.from_address}
                             </a>
                         </td>
                         <td>
                             <a href="/address/ai{$vo.to_address}">
-                                {$vo.to_address}
+                                ai{$vo.to_address}
                             </a>
                         </td>
-                        <td> {$vo.amount} Ether</td>
+                        <td> {$vo.amount} AIT</td>
                     </tr>
 
                 {/foreach}

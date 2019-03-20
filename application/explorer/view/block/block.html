@@ -7,7 +7,7 @@
     <meta name="Description" content="">
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AICHAIN-TESTNET BLOCK</title>
+    <title>AICHAIN BLOCK</title>
     <link rel="stylesheet" href="__PUBLIC__/css/layer.css">
     <link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css">
     <link rel="stylesheet" href="__PUBLIC__/css/reset.css">
@@ -64,7 +64,7 @@
                                     {/if}
                                     and
                                     {if $Block.internaltransaction_num !=0}
-                                    <a href="javascript:;" title="Click to View Internal Transactions">
+                                    <a href="/txsInternal?block={$Block.block_number}" title="Click to View Internal Transactions">
                                         {$Block.internaltransaction_num} contract internal transactions
                                     </a>
                                     {else}

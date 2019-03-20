@@ -6,7 +6,7 @@
     <meta name="Description" content="">
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AICHAIN-TESTNET BLOCKS</title>
+    <title>AICHAIN BLOCKS</title>
     <link rel="stylesheet" href="__PUBLIC__/css/layer.css">
     <link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css">
     <link rel="stylesheet" href="__PUBLIC__/css/reset.css">
@@ -65,7 +65,7 @@
                 <option value ="20" {if $listRows==20}selected="selected"{/if}>20</option>
                 <option value="30" {if $listRows==30}selected="selected"{/if}>30</option>
                 <option value="40" {if $listRows==40}selected="selected"{/if}>40</option>
-                <option value="100" {if $listRows==100}selected="selected"{/if}>40</option>
+                <option value="100" {if $listRows==100}selected="selected"{/if}>100</option>
             </select>
             <span>page</span>
         </div>
@@ -88,7 +88,10 @@
                     <!--</a>-->
                 <!--</li>-->
             <!--</ul>-->
-            {$page}
+            <a href="?listRows=<?php echo isset($page['listRows'])?$page['listRows']:20?>&page=1">首页</a>
+            <a href="?listRows=<?php echo isset($page['listRows'])?$page['listRows']:20?>&page=<?php echo $page['page']==1?1:($page['page']-1)?>">上一页</a>
+            <a href="?listRows=<?php echo isset($page['listRows'])?$page['listRows']:20?>&page=<?php echo $page['page']==$page['endPage']?$page['endPage']:($page['page']+1)?>">下一页</a>
+            <a href="?listRows=<?php echo isset($page['listRows'])?$page['listRows']:20?>&page=<?php echo $page['endPage']?>">尾页</a>
         </nav>
 
     </div>

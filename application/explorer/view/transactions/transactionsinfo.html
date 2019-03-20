@@ -7,7 +7,7 @@
     <meta name="Description" content="">
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AICHAIN-TESTNET Transactions</title>
+    <title>AICHAIN Transactions</title>
     <link rel="stylesheet" href="__PUBLIC__/css/layer.css">
     <link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css">
     <link rel="stylesheet" href="__PUBLIC__/css/reset.css">
@@ -19,10 +19,12 @@
 <!-- nav -->
 <div class="wrapper">
 </div>
+
+<!-- blocks点击id对应的详情页面  -->
+{if $is_null =='true'}
 <div class="blocks">
     <div class="blocks-title">Transaction ::0x{$Transaction.txhash}</div>
 </div>
-<!-- blocks点击id对应的详情页面  -->
 <div class="row  blocksid">
     <div class="CorrespondingID">
         <ul class="nav nav-tabs" role="tablist">
@@ -31,8 +33,9 @@
             <li role="presentation"><a href="#Internal" aria-controls="Internal" role="tab" data-toggle="tab">Internal Transactions</a></li>
             {/if}
             <li role="presentation"><a href="#EventLogs" aria-controls="EventLogs" role="tab" data-toggle="tab">Event Logs({$Eventlogsnumber})</a></li>
-            <li role="presentation"><a href="#Comments" aria-controls="Comments" role="tab" data-toggle="tab">Comments</a></li>
+            <!--<li role="presentation"><a href="#Comments" aria-controls="Comments" role="tab" data-toggle="tab">Comments</a></li>-->
         </ul>
+
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="Overview">
                 <div class="tab-pane fade in active" id="overview">
@@ -102,14 +105,14 @@
                                 <td width="190">Value:
                                 </td>
                                 <td>
-                                    {$Transaction.amount}
+                                    {$Transaction.amount} AIT
                                 </td>
                             </tr>
                             <tr>
                                 <td width="190"> fee:
                                 </td>
                                 <td>
-                                    {$Transaction.fee}
+                                    {$Transaction.fee} AIT
                                 </td>
                             </tr>
                             <tr>
@@ -246,7 +249,33 @@
 
         </div>
     </div>
+
 </div>
+{else/}
+<div class="blocks">
+    <div class="blocks-title">Transaction ::{$txhash}</div>
+</div>
+<div class="row  blocksid">
+    <div class="CorrespondingID">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#Overview" aria-controls="Overview" role="tab" data-toggle="tab">Overview</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="Overview">
+                <div class="tab-pane fade in active" id="overview">
+                    <div class="panel panel-info table-responsive">
+                        <div class="panel-heading margin-bottom-15">
+                            <h3 class="panel-title">Block Information
+                            </h3>
+                        </div>
+                        Sorry, we are unable to locate this Transaction Hash
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/if}
 <div class="footerwrapper"></div>
 </body>
 <script src="__PUBLIC__/js/jquery-3.3.1.min.js"></script>

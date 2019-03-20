@@ -6,7 +6,7 @@
     <meta name="Description" content="">
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Address</title>
+    <title>AICHAIN Address</title>
     <link rel="stylesheet" href="__PUBLIC__/css/layer.css">
     <link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css">
     <link rel="stylesheet" href="__PUBLIC__/css/reset.css">
@@ -21,7 +21,11 @@
     <!-- blocks点击id对应的详情页面  -->
     <div class="address">
         <div class="blocks">
+            {if $is_contract=='true'}
+            <div class="blocks-title">Contract <br><span>ai{$address}</span></div>
+            {else/}
             <div class="blocks-title">Address <br><span>ai{$address}</span></div>
+            {/if}
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -38,9 +42,13 @@
                             <td>Balance:</td>
                             <td>{if $balance_value==''}0{else}{$balance_value}{/if} AIT</td>
                         </tr>
+                        <tr>
+                            <td>Transactions:</td>
+                            <td>{$transactionsnum} txs</td>
+                        </tr>
 
                     <tr>
-                        <td>Token Balances:</td>
+                        <td>Show Tokens:</td>
                         <td>
                             <div class="dropdown">
                                 <button  type="button" data-toggle="dropdown" class="dropdown-toggle" >
@@ -50,21 +58,69 @@
                                 <ul class="dropdown-menu" style="margin:2px 45px 0;width:45px;">
 
                                     {foreach $token_blance as $key =>$vo}
+                                    {if $vo.balance !=0}
                                     <li style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:150px;padding-left:10px;">
                                         <span>ai{$vo.contract_address}</span><br/>
                                     </li>
-                                    <li style="border-bottom: 1px #000000 solid;padding-left:10px;">
+                                    <li style="border-bottom: 1px #ddd solid;padding-left:10px;">
                                         {$vo.balance}&nbsp;&nbsp;{$vo.token_name}
                                     </li>
+                                    {/if}
                                     {/foreach}
                                 </ul>
                             </div>
                         </td>
                     </tr>
+
                     </tbody>
                 </table>
             </div>
 
+           {if $is_contract=='true'}
+            <div class="col-md-6">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th colspan="2">
+                            Overview
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {if $contract_address.tx_hash !=''}
+                    <tr>
+                        <td style="width:100px;display:block">Txhash:</td>
+                        <td><a href="/tx/0x{$contract_address.tx_hash}">{$contract_address.tx_hash}</a></td>
+                    </tr>
+                    {/if}
+                    {if $contract_address.total_supply !=''}
+                    <tr>
+                        <td>Token Total Supply:</td>
+                        <td>{$contract_address.total_supply}</td>
+                    </tr>
+                    {/if}
+                    {if $contract_address.create_address !=''}
+                    <tr>
+                        <td>Create address:</td>
+                        <td><a href="/address/ai{$contract_address.create_address}">ai{$contract_address.create_address}</a></td>
+                    </tr>
+                    {/if}
+                    {if $contract_address.token_name !=''}
+                    <tr>
+                        <td>Token Name:</td>
+                        <td>{$contract_address.token_name}</td>
+                    </tr>
+                    {/if}
+                    {if $contract_address.token_symbol !=''}
+                    <tr>
+                        <td>Token Symbol:</td>
+                        <td>{$contract_address.token_symbol}</td>
+                    </tr>
+                    {/if}
+                    </tbody>
+                </table>
+            </div>
+       {/if}
         </div>
         <!-- blocks点击id对应的详情页面  -->
         <div class="row  blocksid margin-top30 accountTrans">
@@ -82,7 +138,7 @@
                             <div class="panel panel-info table-responsive">
                                 <div class="bs-example table-responsive" data-example-id="hoverable-table">
                                     <div class="panel-heading margin-bottom-15">
-                                        <a href="/txs?address={$address}">
+                                        <a href="/txs?address=ai{$address}">
                                             <h3 class="panel-title">View All</h3>
                                         </a>
                                     </div>
@@ -141,7 +197,7 @@
                             <div class="panel panel-info table-responsive">
                                 <div class="bs-example table-responsive" data-example-id="hoverable-table">
                                     <div class="panel-heading margin-bottom-15">
-                                        <a href="javascript:;">
+                                        <a href="/txsInternal?address=ai{$address}">
                                             <h3 class="panel-title">View All</h3>
                                         </a>
                                     </div>
@@ -161,7 +217,7 @@
                                         {foreach $internaltransaction as $key =>$vo}
                                             <tr>
                                                 <td>
-                                                    <a href="/block/0x{$vo.parent_txhash}">
+                                                    <a href="/tx/0x{$vo.parent_txhash}">
                                                         0x{$vo.parent_txhash}
                                                     </a>
                                                 </td>
@@ -199,7 +255,7 @@
                             <div class="panel panel-info table-responsive">
                                 <div class="bs-example table-responsive" data-example-id="hoverable-table">
                                     <div class="panel-heading margin-bottom-15">
-                                        <a href="/tokentxs?address={$address}">
+                                        <a href="/tokentxs?address=ai{$address}">
                                             <h3 class="panel-title">View All</h3>
                                         </a>
                                     </div>
@@ -239,7 +295,7 @@
                                                         ai{$vo.erc20_to}
                                                     </a>
                                                 </td>
-                                                <td>{$vo.erc20_amount} AIT</td>
+                                                <td>{$vo.erc20_amount}</td>
                                                 <td>{$vo.token}</td>
                                             </tr>
 
