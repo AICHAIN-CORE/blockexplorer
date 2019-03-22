@@ -39,6 +39,13 @@ class Transactions extends Controller
                  //判断是否是只能合约或者erc20
                  $Erc20= Db::name('Erc20Transfer')->where(['txhash'=>$item['txhash']])->select();
                  $item['is_erc20'] = count($Erc20);
+
+                 if($item['to_address']==''){
+
+                     $contract = Db::name('Contract')->where(['tx_hash'=>$item['txhash']])->select();
+                     $item['to_address'] = $contract[0]['contract_address'];
+                 }
+
                  return $item;
              });
 
@@ -67,6 +74,66 @@ class Transactions extends Controller
              return $this->fetch();
 
          }
+    
+         public function gettransactions(){
+
+            $db=Db::name('Transaction');
+            if(isset($_REQUEST['block'])){
+             $block_number = $_REQUEST['block'];
+             $db->where(['block_number'=>$block_number]);
+            }
+
+            if(isset($_REQUEST['address'])){
+                $address_from = $_REQUEST['address'];
+                $address_from =substr($address_from,2,42 );
+                $db->where(['from_address'=>$address_from]);
+                $db->whereOr(['to_address'=>$address_from]);
+            }
+
+
+            if(isset($_GET['listRows'])){
+                $listRows = $_GET['listRows'];
+            }else{
+                $listRows=20;
+            }
+            $Transaction = $db->order('block_timestamp desc')->paginate($listRows,false,['query' => Request::instance()->param()])->each(function($item, $key){
+
+            $item['timeago'] = getTimeDiff( $item['block_timestamp'],'en');
+                // $Block[0]['internaltransaction_num'] = $InternalTransaction;
+                //判断是否是只能合约或者erc20
+                $Erc20= Db::name('Erc20Transfer')->where(['txhash'=>$item['txhash']])->select();
+                $item['is_erc20'] = count($Erc20);
+
+                if($item['to_address']==''){
+
+                    $contract = Db::name('Contract')->where(['tx_hash'=>$item['txhash']])->select();
+                    $item['to_address'] = $contract[0]['contract_address'];
+                }
+
+                return $item;
+            });
+
+            //$page = $Transaction->render();
+            $returnArray = [
+                'Transaction'  =>$Transaction,
+            //    'page'=>$page,
+            //    'listRows'=>$listRows
+
+            ];
+            if(isset($block_number)){
+                $returnArray['block_number']=$block_number;
+            }else{
+                $returnArray['block_number']='';
+            }
+
+             if(isset($address_from)){
+                 $returnArray['address']=$address_from;
+             }else{
+                 $returnArray['address']='';
+             }
+
+             echo json_encode($returnArray);
+        }
 
     public function transactionsinfo($txhash){
 
@@ -75,18 +142,29 @@ class Transactions extends Controller
             $txhash =substr($txhash,2,66 );
             $db->where(['txhash'=>$txhash]);
         }
+        $where = ['txhash'=>$txhash];
+        if(isset($db->select()[0])){
+            $Transaction = $db->where($where)->select()[0];
 
-        $Transaction = $db->select()[0];
+
         $Token_Transfer = Db::name('Erc20Transfer')->where(['txhash'=>$Transaction['txhash']])->select();
         if(!empty($Token_Transfer)){
             for($i=0;$i<count($Token_Transfer);$i++){
 
                 $Erc20= Db::name('Contract')->where(['contract_address'=>$Token_Transfer[$i]['contract_address']])->select();
                 $Token_Transfer[$i]['token_name']=$Erc20[0]['token_name'];
+
             }
         }
         $Internal_Transaction = Db::name('InternalTransaction')->where(['parent_txhash'=>$Transaction['txhash']])->select();
 
+
+        $Erc20= Db::name('Contract')->where(['contract_address'=>$Transaction['contract_address']])->select();
+
+        if($Transaction['to_address']==''){
+            $Transaction['to_address']=$Erc20[0]['contract_address'];
+        }
+            $Eventlogsnumber=0;
         if(isset($Transaction['contract_address'])){
         $recipt = Db::name('Receipt')->where(['contract_address'=>$Transaction['contract_address'],'txhash'=>$txhash])->select();
         if(isset($recipt[0])) {
@@ -108,8 +186,7 @@ class Transactions extends Controller
             'InternalTransaction'=>$Internal_Transaction,
             'InternalTransactionnum'=>count($Internal_Transaction),
             'Eventlogsnumber'=>$Eventlogsnumber,
-
-
+            'is_null'=>'true'
         ];
 
         if(isset($recipt[0])){
@@ -117,7 +194,12 @@ class Transactions extends Controller
         }else{
             $returnArray['Recipt']=null;
         }
-
+        }else{
+            $returnArray=[
+                'is_null'=>'false',
+                'txhash'=>$txhash
+            ];
+        }
         $this->assign($returnArray);
 
 
@@ -125,8 +207,19 @@ class Transactions extends Controller
 
     }
     public function txsInternal(){
-        $db=Db::name('InternalTransaction');
 
+        $db=Db::name('InternalTransaction');
+        if(isset($_REQUEST['address'])){
+            $address_from = $_REQUEST['address'];
+            $address_from =substr($address_from,2,42 );
+            $db->where(['from_address'=>$address_from]);
+            $db->whereOr(['to_address'=>$address_from]);
+        }
+
+        if(isset($_REQUEST['block'])){
+            $block_number = $_REQUEST['block'];
+            $db->where(['block_number'=>$block_number]);
+        }
         $Transaction = $db->order('tx_timestamp desc')->paginate(20,false,request()->param())->each(function($item, $key){
 
                $list = Db::name('InternalTransaction')->where(['block_number'=>$item['block_number']])->select();

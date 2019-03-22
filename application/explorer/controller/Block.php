@@ -52,30 +52,46 @@ class Block extends Controller
               return $this->fetch();
           }
 
+
     public function blocks(){
 
 
 
-              if(isset($_GET['listRows'])){
-                  $listRows = $_GET['listRows'];
-              }else{
-                  $listRows=20;
-              }
+        if(isset($_GET['listRows'])){
+            $listRows = $_GET['listRows'];
+        }else{
+            $listRows=20;
+        }
+        if(isset($_GET['page'])){
+            $_GET['page'] = $_GET['page'];
+        }else{
+            $_GET['page'] = 1;
+        }
 
-        $num = Db::table("Block")->order('block_number desc')->limit(1)->select()[0];//统计一共拥有的条数
+        //$nums = Db::table("Block")->field('count(block_number) as count ')->find();//统计一共拥有的条数
 
+        $num = Db::table("Block")->order('block_number desc')->limit(1)->select()[0];
 
-        $Block = Db::name('Block')->order('block_number desc')->paginate($listRows,$num['block_number'],['query' => Request::instance()->param()])->each(function($item, $key){
+        //计算分页从第几行开始
+        $limit = $num['block_number'] -  ($_GET['page'] - 1) * $listRows;
+
+        //     $Block = Db::name('Block')->where("block_number > $limit")->order('block_number desc')->paginate($listRows,false)->each(function($item, $key){
+        $Block = Db::name('Block')->where("block_number <= '".$limit."'")->order('block_number desc')->limit($listRows)->select();
+        //echo Db::name('Block')->getLastSql();die;
+        foreach($Block as $k=>$item)
+        {
             $Transaction=Db::name('Transaction')->where(['block_number'=>$item['block_number']])->count();
             //$uncle_num=Db::name('Transaction')->where(['txhash'=>$item['uncle_hash']])->count();
-            $item['timeago'] = getTimeDiff( $item['block_timestamp'],'en');
-            $item['transaction_num']  = $Transaction;
+            $Block[$k]['timeago'] = getTimeDiff( $item['block_timestamp'],'en');
+            $Block[$k]['transaction_num']  = $Transaction;
 //          $Block[0]['internaltransaction_num'] = $InternalTransaction;
-            $item['difficulty'] = number_format( $item['difficulty']);
-            $item['uncle_num'] = 0;
-            return $item;
-            });
-        $page = $Block->render();
+            $Block[$k]['difficulty'] = number_format( $item['difficulty']);
+            $Block[$k]['uncle_num'] = 0;
+        };
+        //$page = $Block->render();
+        $page['page'] = $_GET['page'];
+        $page['endPage'] = ceil($num['block_number'] / $listRows - 1);
+        $page['listRows'] = $listRows;
         $this->assign([
             'Blocks'  =>$Block,
             'page'=>$page,
@@ -85,6 +101,4 @@ class Block extends Controller
 
         return $this->fetch();
     }
-
-
 }

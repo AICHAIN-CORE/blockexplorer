@@ -21,6 +21,10 @@ class Explorer extends Controller
       for($i = 0;$i<count($Transaction);$i++){
 
             $Transaction[$i]['block_timestamp'] = getTimeDiff($Transaction[$i]['block_timestamp'],'en');
+            if($Transaction[$i]['to_address']==''){
+                $contract = Db::name('Contract')->where(['tx_hash'=>$Transaction[$i]['txhash']])->select();
+                $Transaction[$i]['to_address'] = $contract[0]['contract_address'];
+            }
 
       }
 
