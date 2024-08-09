@@ -6,8 +6,7 @@ This project must run with a AICHAIN block datas parser, which's source code wil
 The testnet of AICHAIN blockchain explorer is running online:
 https://testnetscan.aichain.me/
 
-The mainnet of AICHAIN  blockchain explorer is stopped:
-https://scan.aichain.me/
+The mainnet of AICHAIN  blockchain explorer is stopped!
 (Most users are students of university, who only use testnet network. Hope someone or some team can continue this project to run mainnet again.)
 
 Tx query api for an address: all tx records or ERC20 tx records
